@@ -1,10 +1,10 @@
 import { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 
 //change class into function (hooks)//
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm({ newContacts }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -15,7 +15,8 @@ export default function ContactForm({ onSubmit }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit(name, number);
+    // eslint-disable-next-line no-undef
+    newContacts(name, number);
     reset();
   };
 
@@ -60,6 +61,10 @@ export default function ContactForm({ onSubmit }) {
     </section>
   );
 }
+
+ContactForm.propTypes = {
+  newContacts: PropTypes.func.isRequired,
+};
 
 // ContactForm.propTypes = {
 //   onSubmit: PropTypes.func.isRequired,
@@ -138,6 +143,3 @@ export default function ContactForm({ onSubmit }) {
 //     );
 //   }
 // }
-// ContactForm.propTypes = {
-//   newContact: PropTypes.func.isRequired,
-// };
