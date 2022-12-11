@@ -40,7 +40,7 @@ export default function App() {
       return;
     }
     // eslint-disable-next-line no-undef
-    setContacts([...contacts, { id: nanoid(), name, number }]);
+    setContacts(prev=>[...prev, { id: nanoid(), name, number }]);
   };
 
   const onChangeFilter = event => setFilter(event.target.value);
