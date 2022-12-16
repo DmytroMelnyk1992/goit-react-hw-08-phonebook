@@ -1,71 +1,65 @@
-/* eslint-disable no-undef */
-import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem } from '../redux/contactSlice';
+import { getContact, getFilterWord } from '../redux/selectors';
 import React from 'react';
 import ContactList from './ContactList/ContactList';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
-import { nanoid } from 'nanoid';
 import css from './App.module.css';
 
-const initialContacts = [
-  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-];
+export const App = () => {
+  const dispatch = useDispatch();
 
-export default function App() {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(getContact);
+  const filterWord = useSelector(getFilterWord);
 
-  useEffect(() => {
-    console.log(JSON.parse(localStorage.getItem('contacts')));
-    const data = localStorage.getItem('contacts')
-      ? JSON.parse(localStorage.getItem('contacts'))
-      : initialContacts;
-    setContacts(data);
-  }, []);
+  // const [contacts, setContacts] = useState([]);
+  // const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    console.log(contacts);
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   console.log(JSON.parse(localStorage.getItem('contacts')));
+  //   const data = localStorage.getItem('contacts')
+  //     ? JSON.parse(localStorage.getItem('contacts'))
+  //     : initialContacts;
+  //   setContacts(data);
+  // }, []);
 
-  const newContacts = (name, number) => {
-    const newContact = contacts.find(
-      el => el.name.toLowerCase() === name.toLowerCase()
+  // useEffect(() => {
+  //   console.log(contacts);
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
+
+  const newContacts = newContactData => {
+    const findContact = contacts.find(contact =>
+      contact.name.toLowerCase().includes(newContactData.name.toLowerCase())
     );
-    if (newContact) {
-      alert(`${name} is already is in contacts.`);
-      return;
-    }
-    // eslint-disable-next-line no-undef
-    setContacts(prev=>[...prev, { id: nanoid(), name, number }]);
+    findContact
+      ? alert(`${newContactData.name} is already in contact`)
+      : dispatch(addItem(newContactData));
   };
 
-  const onChangeFilter = event => setFilter(event.target.value);
+  const isVisibleContacts = () => {
+    if (filterWord) {
+      const normalizeFilter = filterWord.toLowerCase();
 
-  const filteredContacts = contacts.filter(({ name }) =>
-    name.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  const deleteContacts = id => {
-    const newArray = contacts.filter(el => el.id !== id);
-    setContacts(newArray);
+      if (contacts.length !== 0) {
+        return contacts.filter(contact =>
+          contact.name.toLowerCase().includes(normalizeFilter)
+        );
+      }
+    }
+    return contacts;
   };
 
   return (
     <div>
       <h1 className={css.setion_title}>Phonebook</h1>
 
-      <ContactForm newContacts={newContacts} />
+      <ContactForm onSubmit={newContacts} />
 
-      <Filter onChangeFilter={onChangeFilter} filter={filter} />
+      <Filter />
       <h2 className={css.setion_title}>Contacts</h2>
-      <ContactList
-        contacts={filteredContacts}
-        deleteContacts={deleteContacts}
-      />
+      <ContactList contacts={isVisibleContacts()} />
     </div>
   );
-}
+};
