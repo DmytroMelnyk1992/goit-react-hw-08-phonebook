@@ -10,6 +10,7 @@ const ContactList = () => {
 
   //fixing errors on logic
 
+  // eslint-disable-next-line no-unused-vars
   const deteteContacts = id => {
     dispatch(deleteContacts(id));
   };
