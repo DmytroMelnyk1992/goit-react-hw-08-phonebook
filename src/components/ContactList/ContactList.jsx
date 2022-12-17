@@ -8,8 +8,7 @@ const ContactList = () => {
   const dispatch = useDispatch();
   const filteredContacts = useSelector(getFilteredContacts);
 
-  // eslint-disable-next-line no-unused-vars
-  const deteteContact = id => {
+  const deleteContact = id => {
     dispatch(deleteContacts(id));
   };
 
@@ -30,7 +29,7 @@ const ContactList = () => {
                 type="button"
                 className={css.delete}
                 name={id}
-                onClick={() => deleteContacts(id)}
+                onClick={() => deleteContact(id)}
               >
                 Delete
               </button>

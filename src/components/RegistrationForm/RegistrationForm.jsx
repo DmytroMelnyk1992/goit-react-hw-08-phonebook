@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/authOperations';
+import css from './RegistrationForm.module.css';
 
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -19,33 +20,37 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} autoComplete="off">
-      {' '}
-      <label>
+    <div className={css.form}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         {' '}
-        Username <input type="text" name="name" />{' '}
-      </label>{' '}
-      <label>
-        {' '}
-        Email{' '}
-        <input
-          type="email"
-          name="email"
-          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-          title="Invalid email address"
-        />{' '}
-      </label>{' '}
-      <label>
-        {' '}
-        Password{' '}
-        <input
-          type="password"
-          name="password"
-          pattern="(?=.*[a-z])(?=.*[1-9]).{8,}"
-          title="The password cannot be less than 7 characters and must contain at least one number, one lowercase latin letter."
-        />{' '}
-      </label>{' '}
-      <button type="submit">Register</button>{' '}
-    </form>
+        <label className={css.label}>
+          {' '}
+          Username <input type="text" name="name" />{' '}
+        </label>{' '}
+        <label className={css.label}>
+          {' '}
+          Email{' '}
+          <input
+            type="email"
+            name="email"
+            pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+            title="Invalid email address"
+          />{' '}
+        </label>{' '}
+        <label className={css.label}>
+          {' '}
+          Password{' '}
+          <input
+            type="password"
+            name="password"
+            pattern="(?=.*[a-z])(?=.*[1-9]).{8,}"
+            title="The password cannot be less than 7 characters and must contain at least one number, one lowercase latin letter."
+          />{' '}
+        </label>{' '}
+        <button className={css.button} type="submit">
+          Register
+        </button>{' '}
+      </form>
+    </div>
   );
 };

@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  gap: 20px;
+}
+
+.button {
+  color: #1cc49d;
+  background-color: #1b2f31;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 60px;
+  font-size: medium;
+  font-weight: 400;
+  border-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+}
