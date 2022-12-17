@@ -8,6 +8,8 @@ const ContactList = () => {
   const dispatch = useDispatch();
   const filteredContacts = useSelector(getFilteredContacts);
 
+  //fixing errors on logic
+
   const deteteContacts = id => {
     dispatch(deleteContacts(id));
   };
