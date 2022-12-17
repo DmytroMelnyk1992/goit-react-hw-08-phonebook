@@ -8,10 +8,8 @@ const ContactList = () => {
   const dispatch = useDispatch();
   const filteredContacts = useSelector(getFilteredContacts);
 
-  //fixing errors on logic
-
   // eslint-disable-next-line no-unused-vars
-  const deteteContacts = id => {
+  const deteteContact = id => {
     dispatch(deleteContacts(id));
   };
 
